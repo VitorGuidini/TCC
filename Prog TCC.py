@@ -22,16 +22,16 @@ for equip in equipamentos:
                 continue
             
             if equip == line[1]:
-                list_equip_mes.append(line[0])
+                list_equip_mes.append(line[0]) 
                 list_equip_total.append(float(line[2].replace(',', '.')))
-                list_equip_ipts.append(float(line[3].replace(',', '.')))  
-                list_equip_ei.append(line[4])
-                list_equip_pp.append(line[5])                                  
-              #  list_equip_ei.append(float(line[4].replace(',', '.')))
-              #  list_equip_pp.append(float(line[5].replace(',', '.'))) 
-
-    plt.rcParams["figure.figsize"] = [14.00, 7.00]
-  
+                list_equip_ipts.append(float(line[3].replace(',', '.')))                                                  
+                list_equip_ei.append(line[4]) 
+                list_ei_v1= [i.replace('.', '') for i in list_equip_ei]
+                list_ei_v2 = [i.replace(',', '') for i in list_ei_v1]
+                list_ei_float = [(float(i)/100) for i in list_ei_v2]
+                list_equip_pp.append(float(line[5].replace(',', '.'))) 
+                
+    plt.rcParams["figure.figsize"] = [14.00, 7.00]  
     fig, ax = plt.subplots()
     
     #gráfico perdas totais e %IPTS
@@ -49,7 +49,7 @@ for equip in equipamentos:
     #gráfico ei e perdas próprias
     fig1, ax3 = plt.subplots()
     ax3.set_title(equip)
-    ax3.plot(list_equip_mes, list_equip_ei, color='green', marker='o')
+    ax3.plot(list_equip_mes, list_ei_float, color='green', marker='o')
     ax3.set_xlabel('Meses', fontsize=14)
     ax3.set_ylabel('energia injetada', color='green', fontsize=14)
     ax4 = ax3.twinx()
